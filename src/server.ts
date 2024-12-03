@@ -4,7 +4,7 @@ import * as satellite from 'satellite.js';
 import cors from 'cors';
 
 // Type definitions
-interface TLEData {
+export interface TLEData {
   name: string;
   line1: string;
   line2: string;
@@ -16,7 +16,7 @@ interface LocationRequest {
   lng: string;
 }
 
-interface SatellitePass {
+export interface SatellitePass {
   startTime: string;
   endTime: string;
   maxElevation: number;
@@ -25,13 +25,13 @@ interface SatellitePass {
   duration: number;
 }
 
-interface Observer {
+export interface Observer {
   latitude: number;
   longitude: number;
   height: number;
 }
 
-const app = express();
+export const app = express();
 app.use(cors());
 app.use(express.json());
 
@@ -203,3 +203,4 @@ app.listen(PORT, () => {
 });
 
 export default app;
+export { fetchTLE, tleCache, calculatePasses };
