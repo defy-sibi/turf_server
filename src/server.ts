@@ -39,6 +39,7 @@ const tleCache = new Map<string, { tle: TLEData; timestamp: number }>();
 const TLE_CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
 async function fetchTLE(satelliteId: string): Promise<TLEData> {
+    console.log('Fetching TLE data for satellite:', satelliteId);
   const cached = tleCache.get(satelliteId);
   if (cached && Date.now() - cached.timestamp < TLE_CACHE_DURATION) {
     return cached.tle;
@@ -175,7 +176,8 @@ const passesPrediction: RequestHandler = async (req, res, next): Promise<void> =
       console.error('Full error details:', {
         message: error.message,
         stack: error.stack,
-        name: error.name
+        name: error.name,
+        timestamp: new Date().toISOString()
       });
       res.status(500).json({ 
         error: 'Failed to calculate passes',
